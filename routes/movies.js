@@ -11,7 +11,9 @@ import {
 
 
 
-router.get("/", async (request, response) => {
+router
+  .route("/")
+  .get(async (request, response) => {
   const filter = request.query;
 
   if (filter.rating) {
@@ -21,28 +23,30 @@ router.get("/", async (request, response) => {
   const filterMovies = await getMovies(filter);
 
   response.send(filterMovies);
-});
-
-router.get("/:id", async (request, response) => {
-  const { id } = request.params;
-
-  const notFound = { message: "No matching movie" };
-
-  const movie = await getMoviesById(id);
-  console.log(movie);
-
-  movie ? response.send(movie) : response.status(404).send(notFound);
-});
-
-router.post("/", async (request, response) => {
+  })
+  .post(async (request, response) => {
   const data = request.body;
 
   const result = await createMovies(data);
 
   response.send(result);
-});
+  });
 
-router.put("/:id", async (request, response) => {
+
+
+router
+  .route("/:id")
+  .get(async (request, response) => {
+    const { id } = request.params;
+  
+    const notFound = { message: "No matching movie" };
+  
+    const movie = await getMoviesById(id);
+    console.log(movie);
+  
+    movie ? response.send(movie) : response.status(404).send(notFound);
+  })
+  .put(async (request, response) => {
   const { id } = request.params;
 
   const data = request.body;
@@ -51,9 +55,8 @@ router.put("/:id", async (request, response) => {
   const result = await updateMovieByID(id, data);
 
   response.send(result);
-});
-
-router.delete("/:id", async (request, response) => {
+  })
+  .delete(async (request, response) => {
   const { id } = request.params;
   const data = request.body;
   const result = await deleteMovieById(id);
