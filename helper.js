@@ -1,7 +1,7 @@
  import {client} from "./index.js"
  
  async function getMoviesById(id) {
-  return await client.db("learnMonge").collection("movies").findOne({ mid: id });
+  return await client.db("learnMonge").collection("movies").findOne({ _id: id });
 }
  async function createMovies(data) {
   return await client.db("learnMonge").collection("movies").insertMany(data);
