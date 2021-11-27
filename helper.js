@@ -1,7 +1,7 @@
  import {client} from "./index.js"
  
  async function getMoviesById(id) {
-  return await client.db("learnMonge").collection("movies").findOne({ id: id });
+  return await client.db("learnMonge").collection("movies").findOne({ mid: id });
 }
  async function createMovies(data) {
   return await client.db("learnMonge").collection("movies").insertMany(data);
@@ -10,13 +10,13 @@
   return await client
     .db("learnMonge")
     .collection("movies")
-    .deleteOne({ id: id });
+    .deleteOne({ mid: id });
 }
  async function updateMovieByID(id, data) {
   return await client
     .db("learnMonge")
     .collection("movies")
-    .updateOne({ id: String.valueOf(id) }, { $set: data }, { upsert: true });
+    .updateOne({ mid: String.valueOf(id) }, { $set: data }, { upsert: true });
 }
 
  async function getMovies(filter) {
