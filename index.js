@@ -5,7 +5,7 @@ import dotenv from "dotenv";
 import { movieRouter } from "./routes/movies.js";
 dotenv.config();
 
-const PORT = 9000;
+const PORT = process.env.PORT || 9000;
 
 const MONGO_URL = process.env.MONGO_URL;
 
