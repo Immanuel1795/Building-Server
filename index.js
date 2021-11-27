@@ -1,10 +1,15 @@
 import express from "express";
 const app = express();
 import { MongoClient } from "mongodb";
+import dotenv from 'dotenv'
+
+dotenv.config();
 
 const PORT = 9000;
 
-const MONGO_URL = "mongodb://localhost";
+// const MONGO_URL = "mongodb://localhost";
+
+const MONGO_URL = process.env.MONGO_URL;
 
 const movieData = [
   {
@@ -164,6 +169,45 @@ app.post("/movies", async (request, response) => {
     .db("learnMonge")
     .collection("movies")
     .insertMany(data);
+
+  response.send(result);
+});
+
+
+app.put("/movies/:id", async (request, response) => {
+  
+  const { id } = request.params;
+
+  const data = request.body;
+  console.log(data, id)
+
+  const client = await createConnection();
+
+  //String.valueOf() to conver to string
+
+  const result = await client
+    .db("learnMonge")
+    .collection("movies")
+    .updateOne({id: String.valueOf(id)}, {$set: data}, { upsert: true });
+
+  response.send(result);
+});
+
+app.delete("/movies/:id", async (request, response) => {
+  
+  const { id } = request.params;
+
+  const data = request.body;
+  console.log(data, id)
+
+  const client = await createConnection();
+
+  //String.valueOf() to conver to string
+
+  const result = await client
+    .db("learnMonge")
+    .collection("movies")
+    .deleteOne({id: id});
 
   response.send(result);
 });
