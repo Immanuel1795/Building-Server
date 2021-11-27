@@ -13,10 +13,11 @@
     .deleteOne({ mid: id });
 }
  async function updateMovieByID(id, data) {
+   console.log(id, data)
   return await client
     .db("learnMonge")
     .collection("movies")
-    .updateOne({ mid: String.valueOf(id) }, { $set: data }, { upsert: true });
+    .updateOne({ mid: id }, { $set: data }, { upsert: true });
 }
 
  async function getMovies(filter) {
