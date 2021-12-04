@@ -336,6 +336,18 @@ const userSchema = yup.object({
 
   _______________________________________________________
 
-  
+  // router
+  // .route("/")
+  // .get(async (request, response) => {
+  // const filter = request.query;
+
+  // if (filter.rating) {
+  //   filter.rating = +filter.rating;
+  // }
+
+  // const filterMovies = await getMovies(filter);
+
+  // response.send(filterMovies);
+  // })
 
   
