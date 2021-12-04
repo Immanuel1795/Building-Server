@@ -53,7 +53,7 @@ router.route("/signup").post(async (request, response) => {
       response.send({message: "Successful login", token: token})
      
     } else {
-      response.send({message: "Invalid Credentials", status: 404})
+      response.send({message: "Invalid Credentials", status: 404}
     }
 
 
