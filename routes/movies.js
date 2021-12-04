@@ -10,12 +10,13 @@ import {
   deleteMovieById,
   createMovies,
 } from "../helper.js";
+import { auth } from "../middleware/auth.js";
 
 
 
 router
   .route("/")
-  .get(async (request, response) => {
+  .get(auth, async (request, response) => {
   const filter = request.query;
 
   if (filter.rating) {
