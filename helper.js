@@ -1,8 +1,8 @@
  import {client} from "./index.js"
- import mongodb from 'mongodb';
+ import {ObjectId} from 'mongodb';
  
  async function getMoviesById(id) {
-  return await client.db("learnMonge").collection("movies").findOne({ _id: mongodb.ObjectId(id) });
+  return await client.db("learnMonge").collection("movies").findOne({ _id: ObjectId(id) });
 }
  async function createMovies(data) {
   return await client.db("learnMonge").collection("movies").insertMany(data);
@@ -11,14 +11,14 @@
   return await client
     .db("learnMonge")
     .collection("movies")
-    .deleteOne({ _id: mongodb.ObjectId(id) });
+    .deleteOne({ _id: ObjectId(id) });
 }
  async function updateMovieByID(id, data) {
    console.log(id, data)
   return await client
     .db("learnMonge")
     .collection("movies")
-    .updateOne({ _id: mongodb.ObjectId(id) }, { $set: data }, { upsert: true });
+    .updateOne({ _id: ObjectId(id) }, { $set: data }, { upsert: true });
 }
 
  async function getMovies(filter) {
@@ -29,12 +29,22 @@
     .toArray();
 }
 
+async function createUser(data) {
+  return await client.db("learnMonge").collection("users").insertOne(data);
+}
+
+async function getUserByName(username) {
+  return await client.db("learnMonge").collection("users").findOne({username: username });
+}
+
 
 export {
   getMovies,
   createMovies,
   updateMovieByID,
   deleteMovieById,
-  getMoviesById
+  getMoviesById,
+  createUser,
+  getUserByName
 
 };

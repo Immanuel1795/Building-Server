@@ -3,6 +3,9 @@ const app = express();
 import { MongoClient } from "mongodb";
 import dotenv from "dotenv";
 import { movieRouter } from "./routes/movies.js";
+
+import { usersRouter } from "./routes/users.js";
+
 dotenv.config();
 import cors from 'cors';
 
@@ -31,6 +34,8 @@ app.get("/", (request, response) => {
 });
 
 app.use("/movies", movieRouter);
+
+app.use("/users", usersRouter);
 
 
 app.listen(PORT, () => console.log("app started"));

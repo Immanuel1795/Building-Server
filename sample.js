@@ -274,4 +274,68 @@ router.delete("/:id", async (request, response) => {
 });
 
 export const movieRouter = router;
+____________Validation with yup_________________________
 
+import express from "express";
+import bcrypt from "bcrypt";
+import { createUser, getUserByName } from "../helper.js";
+const router = express.Router();
+import {userSchema, validate} from "../validation.js"
+
+router.route("/signup").post(validate(userSchema), async (request, response) => {
+  const {username, password} = request.body;
+
+  const hashedPassword = await genPassword(password); 
+  console.log(hashedPassword)
+
+  const isUserExist  = await getUserByName(username);
+
+  if(isUserExist){
+    response.send({message: "Users already exist"});
+    return
+  }
+
+  const result = await createUser({username, password: hashedPassword})
+  response.send(result);
+  });
+
+
+export const usersRouter = router;
+
+async function genPassword(password) {
+    const NO_OF_ROUNDS = 10;
+    const salt = await bcrypt.genSalt(NO_OF_ROUNDS);
+    const hashedPassword = await bcrypt.hash(password, salt);
+    return hashedPassword;
+}
+
+import yup from "yup";
+
+const userSchema = yup.object({
+    username: yup.string().required('Please Enter your username'),
+    password: yup.string().matches(
+      /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/,
+      "Must Contain 8 Characters, One Uppercase, One Lowercase, One Number and one special case Character"
+    ).required('Please Enter your password'),
+ });
+
+ const validate = (schema) => async (request, response, next) => {
+    try {
+      await schema.validate(request.body);
+      return next();
+    } catch (err) {
+      return response.status(500).json(err);
+    }
+  };
+
+  export {
+    userSchema,
+    validate
+  
+  };
+
+  _______________________________________________________
+
+  
+
+  
