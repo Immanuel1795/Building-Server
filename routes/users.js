@@ -35,13 +35,11 @@ router.route("/signup").post(async (request, response) => {
 
 
   router.route("/login").post(async (request, response) => {
-    const {username, password} = request.body;
-
-  
+    const {username, password} = request.body;  
     const userFromDB  = await getUserByName(username);
 
     if(!userFromDB){
-      response.send({message: "Invalid Credentials", status: 404})
+      response.send({message: "No Credentials", status: 404})
       return;
     }
 
