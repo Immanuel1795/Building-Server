@@ -39,36 +39,23 @@ router.route("/signup").post(async (request, response) => {
     const userFromDB  = await getUserByName(username);
 
     if(!userFromDB){
-      response.send({message: "No Credentials", status: 404})
+      response.send({message: "Invalid Credentials", status: 404})
       return;
     }
 
     const storedPassword = userFromDB.password;
-    // const isPasswordMatch = await bcrypt.compare(password, storedPassword);
+    const isPasswordMatch = await bcrypt.compare(password, storedPassword);
 
-    // if(isPasswordMatch){
-    //   const token = jwt.sign({id: userFromDB._id}, process.env.SECRET_KEY)
-    //   response.send({message: "Successful login", token: token})
+    if(isPasswordMatch){
+      const token = jwt.sign({id: userFromDB._id}, process.env.SECRET_KEY)
+      response.send({message: "Successful login", token: token})
      
-    // } else {
-    //   response.send({message: "Invalid Credentials", status: 404})
+    } else {
+      response.send({message: "Invalid Credentials", status: 404})
       
-    // }
+    }
 
-    bcrypt.compare(password, storedPassword).then(function(isPasswordMatch) {
-      if(isPasswordMatch){
-        const token = jwt.sign({id: userFromDB._id}, process.env.SECRET_KEY)
-        response.send({message: "Successful login", token: token})
-       
-      } else {
-        response.send({message: "Invalid Credentials", status: 404})
-      }
-  });
-
-
-  
-    
-    });
+   });
 
 
 export const usersRouter = router;
