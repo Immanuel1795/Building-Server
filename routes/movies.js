@@ -10,6 +10,7 @@ import {
   deleteMovieById,
   createMovies,
 } from "../helper.js";
+
 import { auth } from "../middleware/auth.js";
 
 
@@ -49,7 +50,7 @@ router
   
     movie ? response.send(movie) : response.status(404).send(notFound);
   })
-  .put(async (request, response) => {
+  .put(auth, async (request, response) => {
   const { id } = request.params;
 
   const data = request.body;
@@ -59,7 +60,7 @@ router
 
   response.send(result);
   })
-  .delete(async (request, response) => {
+  .delete(auth, async (request, response) => {
   const { id } = request.params;
   const data = request.body;
   const result = await deleteMovieById(id);

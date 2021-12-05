@@ -48,7 +48,7 @@ router.route("/signup").post(async (request, response) => {
 
     if(isPasswordMatch){
       const token = jwt.sign({id: userFromDB._id}, process.env.SECRET_KEY)
-      response.send({message: "Successful login", token: token})
+      response.send({message: "Successful login", token: token, id:userFromDB._id})
      
     } else {
       response.send({message: "Invalid Credentials", status: 404})
