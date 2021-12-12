@@ -3,7 +3,7 @@ const app = express();
 import { MongoClient } from "mongodb";
 import dotenv from "dotenv";
 import { movieRouter } from "./routes/movies.js";
-
+import { recipeRouter } from "./routes/recipee.js";
 import { usersRouter } from "./routes/users.js";
 
 dotenv.config();
@@ -36,6 +36,8 @@ app.get("/", (request, response) => {
 app.use("/movies", movieRouter);
 
 app.use("/users", usersRouter);
+
+app.use("/recipees", recipeRouter);
 
 
 app.listen(PORT, () => console.log("app started"));

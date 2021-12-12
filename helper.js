@@ -37,6 +37,23 @@ async function getUserByName(username) {
   return await client.db("learnMonge").collection("users").findOne({username: username });
 }
 
+async function getRecipeesById(id) {
+  return await client.db("learnMonge").collection("recipees").findOne({ _id: ObjectId(id) });
+ }
+ 
+ async function createRecipees(data) {
+     return await client.db("learnMonge").collection("recipees").insertMany(data);
+   }
+ 
+ async function getRecipees(filter) {
+  return await client
+    .db("learnMonge")
+    .collection("recipees")
+    .find(filter)
+    .toArray();
+ }
+ 
+
 
 export {
   getMovies,
@@ -45,6 +62,10 @@ export {
   deleteMovieById,
   getMoviesById,
   createUser,
-  getUserByName
+  getUserByName,
+  getRecipeesById,
+  createRecipees,
+  getRecipees
+
 
 };
