@@ -52,6 +52,12 @@ async function getRecipeesById(id) {
     .find(filter)
     .toArray();
  }
+
+ async function createDateFile(fs, date, time, dateTime) {
+   return fs.writeFile(`./fstaskfiles/${date}_${time}.txt`,dateTime, (err)=>{
+    console.log("success")
+})
+}
  
 
 
@@ -65,7 +71,8 @@ export {
   getUserByName,
   getRecipeesById,
   createRecipees,
-  getRecipees
+  getRecipees,
+  createDateFile
 
 
 };

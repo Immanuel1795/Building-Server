@@ -2,6 +2,9 @@ import express from "express";
 const router = express.Router();
 
 import fs from 'fs';
+import {
+    createDateFile
+  } from "../helper.js";
 
 const today = new Date();
 const date = today.getDate()+'-'+(today.getMonth()+1)+'-'+today.getFullYear();
@@ -29,11 +32,9 @@ router
   .route("/create-files")
   .post(async (request, response) => {
 
-    fs.writeFile(`./fstaskfiles/${date}_${time}.txt`,dateTime, (err)=>{
-        response.send("File Created Successfully");
-    })
+    const result = await createDateFile(fs, date, time, dateTime)
  
-   
+    response.send("File Created Successfully");
   });
   
 
