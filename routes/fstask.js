@@ -38,8 +38,10 @@ router
 fs.writeFile(`${process.cwd()}/fstaskfiles/${date}_${time}.txt`,dateTime, (err)=>{
     if(err){
         console.log(err)
+    } else {
+        response.send("File Created Successfully");
     }
-    response.send("File Created Successfully");
+  
 })
    
   });
