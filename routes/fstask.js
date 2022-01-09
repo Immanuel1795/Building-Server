@@ -30,10 +30,10 @@ router
   .post(async (request, response) => {
 
     fs.writeFile(`./fstaskfiles/${date}_${time}.txt`,dateTime, (err)=>{
-        console.log("success")
+        response.send("File Created Successfully");
     })
  
-    response.send("File Created Successfully");
+   
   });
   
 
