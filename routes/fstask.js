@@ -36,6 +36,9 @@ router
 //    console.log(res)
 
 fs.writeFile(`${process.cwd()}/fstaskfiles/${date}_${time}.txt`,dateTime, (err)=>{
+    if(err){
+        console.log(err)
+    }
     response.send("File Created Successfully");
 })
    
