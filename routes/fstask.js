@@ -2,6 +2,7 @@ import express from "express";
 const router = express.Router();
 
 import fs from 'fs';
+import path from "path";
 import {
     createDateFile
   } from "../helper.js";
@@ -32,18 +33,18 @@ router
   .route("/create-files")
   .post(async (request, response) => {
 
-   const res = await createDateFile(fs, date,time,  dateTime);
-   console.log(res)
-   response.send("File Created Successfully");
+//    const res = await createDateFile(fs, date,time,  dateTime);
+//    console.log(res)
+//    response.send("File Created Successfully");
 
-// fs.writeFile(`${process.cwd()}/fstaskfiles/${date}_${time}.txt`,dateTime, (err)=>{
-//     if(err){
-//         console.log(err)
-//     } else {
-//         response.send("File Created Successfully");
-//     }
+fs.writeFile(`${path.resolve("./")}/fstaskfiles/${date}_${time}.txt`,dateTime, (err)=>{
+    if(err){
+        console.log(err)
+    } else {
+        response.send("File Created Successfully");
+    }
   
-// })
+})
    
   });
   
