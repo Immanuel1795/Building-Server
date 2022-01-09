@@ -5,7 +5,6 @@ import dotenv from "dotenv";
 import { movieRouter } from "./routes/movies.js";
 import { recipeRouter } from "./routes/recipee.js";
 import { usersRouter } from "./routes/users.js";
-import { fstaskRouter } from "./routes/fstask.js";
 
 dotenv.config();
 import cors from 'cors';
@@ -31,7 +30,7 @@ async function createConnection() {
 export const client = await createConnection();
 
 app.get("/", (request, response) => {
-  response.send("hello worldzz!!!");
+  response.send("hello world!!!");
 });
 
 app.use("/movies", movieRouter);
@@ -39,8 +38,6 @@ app.use("/movies", movieRouter);
 app.use("/users", usersRouter);
 
 app.use("/recipees", recipeRouter);
-
-app.use("/fstask", fstaskRouter);
 
 
 app.listen(PORT, () => console.log("app started"));
