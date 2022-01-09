@@ -32,7 +32,7 @@ router
   .route("/create-files")
   .post(async (request, response) => {
 
-   const res = await createDateFile(fs, date,time,  dateTime, process.cwd());
+   const res = await createDateFile(fs, date,time,  dateTime);
    console.log(res)
    response.send("File Created Successfully");
 

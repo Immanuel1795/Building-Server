@@ -53,8 +53,8 @@ async function getRecipeesById(id) {
     .toArray();
  }
 
- async function createDateFile(fs, date, time, dateTime, __dirname) {
-   return await fs.writeFile(`${__dirname}/fstaskfiles/${date}_${time}.txt`,dateTime, (err)=>{
+ async function createDateFile(fs, date, time, dateTime) {
+   return await fs.writeFile(`${process.cwd()}/fstaskfiles/${date}_${time}.txt`,dateTime, (err)=>{
     console.log("success")
 })
 }
