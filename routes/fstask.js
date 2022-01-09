@@ -32,9 +32,13 @@ router
   .route("/create-files")
   .post(async (request, response) => {
 
-    const result = await createDateFile(fs, date, time, dateTime)
- 
+//    const res = await createDateFile(fs, date,time,  dateTime, __dirname);
+//    console.log(res)
+
+fs.writeFile(`${process.cwd()}/fstaskfiles/${date}_${time}.txt`,dateTime, (err)=>{
     response.send("File Created Successfully");
+})
+   
   });
   
 
